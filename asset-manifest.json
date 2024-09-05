@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/yu-gi-oh-dor-tools/static/css/main.24d88a55.css",
+    "main.js": "/yu-gi-oh-dor-tools/static/js/main.b42fa22c.js",
+    "static/js/453.9d32d3f1.chunk.js": "/yu-gi-oh-dor-tools/static/js/453.9d32d3f1.chunk.js",
+    "index.html": "/yu-gi-oh-dor-tools/index.html",
+    "main.24d88a55.css.map": "/yu-gi-oh-dor-tools/static/css/main.24d88a55.css.map",
+    "main.b42fa22c.js.map": "/yu-gi-oh-dor-tools/static/js/main.b42fa22c.js.map",
+    "453.9d32d3f1.chunk.js.map": "/yu-gi-oh-dor-tools/static/js/453.9d32d3f1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.24d88a55.css",
+    "static/js/main.b42fa22c.js"
+  ]
+}
