@@ -1,39 +1,48 @@
 import React from "react";
-import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
-import { Cards } from "../../../store/interfaces/cards.interface";
+import { Cards } from "../../../store";
 import Field from "./Field";
+import { Card, Col, Collapse, CollapseProps, Row, Typography } from "antd";
 
 type Props = {
   card: Cards;
 };
 
 const CardSpell = ({ card }: Props) => {
+  const items: CollapseProps["items"] = [
+    {
+      key: "1",
+      label: "Effect",
+      children: card.effect,
+    },
+  ];
+  const Description = (
+    <Row>
+      <Field label="DC" value={card.deckcost} />
+      <Col span={24} className="effect">
+        <Collapse items={items} />
+      </Col>
+    </Row>
+  );
+
+  const Title = (
+    <Typography.Title
+      ellipsis={{ tooltip: `${card.id} - ${card.name}` }}
+      level={5}
+    >
+      {card.id} - {card.name}
+    </Typography.Title>
+  );
   return (
-    <Card style={{ width: "24rem" }} className="mx-auto">
-      <Card.Img
-        variant="top"
-        src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
-      />
-      <Card.Body>
-        <Card.Title>
-          {card.id} - {card.name}
-        </Card.Title>
-        <Container fluid>
-          <Row xs={2} md={2} lg={2}>
-            <Field label="DC" value={card.deckcost} />
-          </Row>
-          <Row className="py-2">
-            <Col>
-              <Accordion>
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>Effect</Accordion.Header>
-                  <Accordion.Body>{card.effect}</Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </Col>
-          </Row>
-        </Container>
-      </Card.Body>
+    <Card
+      className="card-list-card-spell"
+      cover={
+        <img
+          alt={card.name}
+          src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
+        />
+      }
+    >
+      <Card.Meta title={Title} description={Description} />
     </Card>
   );
 };

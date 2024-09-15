@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# Yu-Gi-Oh Duelists of the Roses
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![npm version](https://img.shields.io/npm/v/npm)
+![React version](https://img.shields.io/badge/react-18.3.1-blue)
+![Redux version](https://img.shields.io/badge/redux-9.1.2-purple)
+![Ant Design version](https://img.shields.io/badge/ant--design-5.20.5-green)
 
-## Available Scripts
+I’ve always been a huge fan of Yu-Gi-Oh!, especially the game "Duel of Roses." However, one of the most frustrating aspects of playing was trying to figure out the fusions. Searching through wikis and forums was a nightmare, and it took far too long to find what I needed. This project is my way of solving that issue, creating a more accessible and user-friendly fusion guide for Duel of Roses.
 
-In the project directory, you can run:
+## Project information
 
-### `npm start`
+```
+// This is the information used into this project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+export interface Cards {
+  id: string;
+  name: string;
+  deckcost: string;
+  cardtype: string;
+  attribute: string;
+  type: string;
+  level: string;
+  attack: string;
+  defense: string;
+  imageUrl: string;
+  effect?: string;
+}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+export interface Fusions {
+  left: string;
+  right: string;
+  output: string;
+  type: string;
+  untested: string;
+}
+export interface Decks {
+  id: string;
+  name: string;
+  leader: Cards;
+  cards: Cards[];
+}
 
-### `npm test`
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Live
 
-### `npm run build`
+This project is live on GitHub Pages! You can use the application directly by visiting the following link:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Visit Duel of Roses Fusion Guide](http://localhost:3000/yu-gi-oh-dor-tools)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Thanks
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Big thanks to [Yu-Gi-Oh! Wiki](https://yugioh.fandom.com/wiki/Yu-Gi-Oh!_Wiki) for providing essential info about cards and gameplay.
+- Special thanks to the creators of the [YGO-DotR-FusionCalc](https://github.com/Solumin/YGO-DotR-FusionCalc) repo for the comprehensive fusion database that made this project possible.

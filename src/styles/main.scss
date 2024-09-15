@@ -1,0 +1,27 @@
+$layout-header: 64px;
+$layout-footer: 80px;
+.main-layout {
+  &-header {
+    display: flex;
+    align-items: center;
+    &-menu {
+      flex: 1;
+      min-width: none;
+    }
+  }
+  &-content {
+    padding: 30px 20px;
+    min-height: calc(100vh - $layout-header - $layout-footer);
+  }
+  &-footer {
+    background: #141414;
+    &-content {
+      &-warning {
+        color: #faad14;
+      }
+      &-links {
+        text-align: right;
+      }
+    }
+  }
+}

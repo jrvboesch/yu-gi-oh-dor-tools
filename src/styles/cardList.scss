@@ -1,0 +1,19 @@
+.card-list {
+  &-search {
+    text-align: center;
+    &-auto-complete {
+      text-align: left;
+      width: 300px;
+    }
+  }
+  &-card {
+    padding: 0 8px;
+    &-monster,
+    &-spell {
+      height: 100%;
+      .effect {
+        padding-top: 10px;
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ export interface Cards {
   attack: string;
   defense: string;
   imageUrl: string;
-  effect: string;
+  effect?: string;
 }
 
 export interface Fusions {
@@ -18,4 +18,10 @@ export interface Fusions {
   output: string;
   type: string;
   untested: string;
+}
+export interface Decks {
+  id: string;
+  name: string;
+  leader: Cards;
+  cards: Cards[];
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col } from "react-bootstrap";
+import { Col, Typography } from "antd";
 
 type Props = {
   label: string;
@@ -9,12 +9,10 @@ type Props = {
 const Field = ({ label, value }: Props) => {
   return (
     <>
-      <Col xs={6} md={6} lg={6} className="fw-bold">
-        {label}
+      <Col span={12}>
+        <Typography.Text strong> {label} </Typography.Text>
       </Col>
-      <Col xs={6} md={6} lg={6}>
-        {value}
-      </Col>
+      <Col span={12}>{value}</Col>
     </>
   );
 };

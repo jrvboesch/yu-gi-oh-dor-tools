@@ -1,0 +1,16 @@
+$bounce-height: 20px;
+$duration: 2s;
+.not-found {
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-$bounce-height);
+    }
+  }
+  &-image {
+    animation: bounce $duration ease-in-out infinite;
+  }
+}

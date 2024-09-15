@@ -1,7 +1,8 @@
 import React from "react";
-import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
-import { Cards } from "../../../store/interfaces/cards.interface";
+import { Cards } from "../../../store";
 import Field from "./Field";
+import { Card, Col, Collapse, CollapseProps, Row, Typography } from "antd";
+import { StarOutlined } from "@ant-design/icons";
 
 type Props = {
   card: Cards;
@@ -12,7 +13,7 @@ type Props = {
 const CardMonster = ({ card, left, right }: Props) => {
   const Level = (
     <>
-      {card.level} <i className="bi bi-star-fill"></i>
+      {card.level} <StarOutlined />
     </>
   );
 
@@ -21,50 +22,60 @@ const CardMonster = ({ card, left, right }: Props) => {
 
   if (card.effect) {
     Type = `${card.type} | Effect`;
+    const items: CollapseProps["items"] = [
+      {
+        key: "1",
+        label: "Effect",
+        children: card.effect,
+      },
+    ];
     EffectDescription = (
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Effect</Accordion.Header>
-          <Accordion.Body>{card.effect}</Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+      <Col span={24} className="effect">
+        <Collapse items={items} />
+      </Col>
     );
   }
   let FusionMaterial = null;
   if (left && right) {
     FusionMaterial = (
-      <Card.Subtitle className="mb-2 text-muted">
-        {left} + {right}
-      </Card.Subtitle>
+      <Col span={24}>
+        <Typography.Text type="success">
+          {left} + {right}
+        </Typography.Text>
+      </Col>
     );
   }
+
+  const Description = (
+    <Row>
+      {FusionMaterial}
+      <Field label="Attribute" value={card.attribute} />
+      <Field label="Level" value={Level} />
+      <Field label="Type" value={Type} />
+      <Field label="Atk / Def" value={`${card.attack} / ${card.defense}`} />
+      <Field label="DC" value={card.deckcost} />
+      {EffectDescription}
+    </Row>
+  );
+  const Title = (
+    <Typography.Title
+      ellipsis={{ tooltip: `${card.id} - ${card.name}` }}
+      level={5}
+    >
+      {card.id} - {card.name}
+    </Typography.Title>
+  );
   return (
-    <Card style={{ width: "24rem" }} className="mx-auto">
-      <Card.Img
-        variant="top"
-        src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
-      />
-      <Card.Body>
-        <Card.Title>
-          {card.id} - {card.name}
-        </Card.Title>
-        {FusionMaterial}
-        <Container fluid>
-          <Row xs={2} md={2} lg={2}>
-            <Field label="Attribute" value={card.attribute} />
-            <Field label="Level" value={Level} />
-            <Field label="Type" value={Type} />
-            <Field
-              label="Atk / Def"
-              value={`${card.attack} / ${card.defense}`}
-            />
-            <Field label="DC" value={card.deckcost} />
-          </Row>
-          <Row className="py-2">
-            <Col>{EffectDescription}</Col>
-          </Row>
-        </Container>
-      </Card.Body>
+    <Card
+      className="card-list-card-monster"
+      cover={
+        <img
+          alt={card.name}
+          src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
+        />
+      }
+    >
+      <Card.Meta title={Title} description={Description} />
     </Card>
   );
 };
