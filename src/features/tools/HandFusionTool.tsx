@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { Fusions, useAppSelector } from "../../store";
 import CardMonster from "../CardList/components/CardMonster";
-import { Button, Card, Col, Divider, Form, Row, Select } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Empty,
+  Form,
+  Row,
+  Select,
+  Space,
+} from "antd";
 
 type HandFusionToolForm = {
   card1: string;
@@ -29,6 +39,11 @@ const HandFusionTool = () => {
     } catch (error) {}
   };
 
+  const onClear = () => {
+    form.resetFields();
+    setFusionDeck([]);
+  };
+
   const Options = cards
     .filter(({ cardtype }) => cardtype === "Monster")
     .map(({ id, name }) => ({
@@ -37,92 +52,85 @@ const HandFusionTool = () => {
       label: `${id} - ${name}`,
     }));
 
-  const FusionMaterials = fusionDeck.map((fusion) => {
-    const card = cards.find(({ id }) => fusion.output === id);
-    const left = cards.find(({ id }) => fusion.left === id);
-    const right = cards.find(({ id }) => fusion.right === id);
-    if (!card || !left || !right) {
-      return null;
-    }
-    return (
-      <Col key={`${left.id} - ${right.id}`} span={4}>
-        <CardMonster
-          card={card}
-          left={`${left.id} - ${left.name}`}
-          right={`${right.id} - ${right.name}`}
-        />
-      </Col>
-    );
-  });
+  const FusionMaterials = fusionDeck.length ? (
+    fusionDeck.map((fusion) => {
+      const card = cards.find(({ id }) => fusion.output === id);
+      const left = cards.find(({ id }) => fusion.left === id);
+      const right = cards.find(({ id }) => fusion.right === id);
+      if (!card || !left || !right) {
+        return null;
+      }
+      return (
+        <Col key={`${left.id} - ${right.id}`} xl={4} md={8} sm={12} xs={24}>
+          <CardMonster
+            card={card}
+            left={`${left.id} - ${left.name}`}
+            right={`${right.id} - ${right.name}`}
+          />
+        </Col>
+      );
+    })
+  ) : (
+    <Empty
+      description="No Futions Available."
+      image={`${process.env.PUBLIC_URL}/back-card.png`}
+    />
+  );
   const onFilterOption = (inputValue: string, label: string) =>
     label.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
 
+  const CardSelect = (
+    <Select
+      showSearch
+      options={Options}
+      placeholder="Pick a Monster"
+      allowClear
+      filterOption={(inputValue, option) =>
+        onFilterOption(inputValue, option!.label as string)
+      }
+    />
+  );
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
         <Card size="small" title="Set your hand!">
           <Form form={form} layout="vertical">
             <Row gutter={[16, 16]} justify="center">
-              <Col span={8}>
+              <Col xl={8} lg={8} md={12} sm={12} xs={24}>
                 <Form.Item name="card1" label="Pick a Tribute Monster.">
-                  <Select
-                    showSearch
-                    options={Options}
-                    filterOption={(inputValue, option) =>
-                      onFilterOption(inputValue, option!.label as string)
-                    }
-                  ></Select>
+                  {CardSelect}
                 </Form.Item>
               </Col>
-              <Col span={8}>
+              <Col xl={8} lg={8} md={12} sm={12} xs={24}>
                 <Form.Item name="card2" label="Pick a Tribute Monster.">
-                  <Select
-                    showSearch
-                    options={Options}
-                    filterOption={(inputValue, option) =>
-                      onFilterOption(inputValue, option!.label as string)
-                    }
-                  ></Select>
+                  {CardSelect}
                 </Form.Item>
               </Col>
-              <Col span={8}>
+              <Col xl={8} lg={8} md={12} sm={12} xs={24}>
                 <Form.Item name="card3" label="Pick a Tribute Monster.">
-                  <Select
-                    showSearch
-                    options={Options}
-                    filterOption={(inputValue, option) =>
-                      onFilterOption(inputValue, option!.label as string)
-                    }
-                  ></Select>
+                  {CardSelect}
                 </Form.Item>
               </Col>
-              <Col span={8}>
+              <Col xl={8} lg={8} md={12} sm={12} xs={24}>
                 <Form.Item name="card4" label="Pick a Tribute Monster.">
-                  <Select
-                    showSearch
-                    options={Options}
-                    filterOption={(inputValue, option) =>
-                      onFilterOption(inputValue, option!.label as string)
-                    }
-                  ></Select>
+                  {CardSelect}
                 </Form.Item>
               </Col>
-              <Col span={8}>
+              <Col lg={10} md={12} sm={12} xs={24}>
                 <Form.Item name="card5" label="Pick a Tribute Monster.">
-                  <Select
-                    showSearch
-                    options={Options}
-                    filterOption={(inputValue, option) =>
-                      onFilterOption(inputValue, option!.label as string)
-                    }
-                  ></Select>
+                  {CardSelect}
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xl={8} lg={8} xs={24}>
                 <Form.Item>
-                  <Button block type="primary" onClick={onSubmit}>
-                    Show
-                  </Button>
+                  <Space.Compact block>
+                    <Button block type="primary" onClick={onSubmit}>
+                      Show
+                    </Button>
+                    <Button block type="dashed" onClick={onClear}>
+                      Clear
+                    </Button>
+                  </Space.Compact>
                 </Form.Item>
               </Col>
             </Row>
@@ -133,7 +141,9 @@ const HandFusionTool = () => {
         <Divider>Fusion List</Divider>
       </Col>
       <Col span={24}>
-        <Row gutter={[16, 16]}>{FusionMaterials}</Row>
+        <Row gutter={[16, 16]} justify={fusionDeck.length ? "start" : "center"}>
+          {FusionMaterials}
+        </Row>
       </Col>
     </Row>
   );

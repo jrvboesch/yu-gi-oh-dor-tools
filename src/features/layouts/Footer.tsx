@@ -5,7 +5,7 @@ import { GithubOutlined, WarningOutlined } from "@ant-design/icons";
 const Footer = () => {
   return (
     <Row className="main-layout-footer-content">
-      <Col span={16}>
+      <Col md={16} sm={24}>
         <Space>
           <WarningOutlined className="main-layout-footer-content-warning" />
           <Typography.Text>
@@ -15,7 +15,7 @@ const Footer = () => {
           </Typography.Text>
         </Space>
       </Col>
-      <Col span={8} className="main-layout-footer-content-links">
+      <Col md={8} sm={24} className="main-layout-footer-content-links">
         <Button
           type="link"
           icon={<GithubOutlined />}

@@ -30,7 +30,14 @@ const CardList = () => {
         break;
     }
     return (
-      <Col className="card-list-card" key={card.id} span={4}>
+      <Col
+        className="card-list-card"
+        key={card.id}
+        xl={4}
+        md={8}
+        sm={12}
+        xs={24}
+      >
         {Card}
       </Col>
     );

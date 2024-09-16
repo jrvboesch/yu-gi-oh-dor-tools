@@ -3,7 +3,8 @@
     text-align: center;
     &-auto-complete {
       text-align: left;
-      width: 300px;
+      max-width: 300px;
+      width: 100%;
     }
   }
   &-card {

@@ -41,10 +41,10 @@ const Home = () => {
       <Col span={24}>
         <Card bordered={false}>
           <Row justify="space-evenly" align={"middle"}>
-            <Col span={8} className="home-cover">
+            <Col lg={8} md={24} className="home-cover">
               <img src={`${process.env.PUBLIC_URL}/cover.png`} alt="cover" />
             </Col>
-            <Col span={8}>
+            <Col lg={8} md={24}>
               <Space.Compact direction="vertical" size={"large"}>
                 <Typography.Title>It's Time To Duel</Typography.Title>
                 <Divider />
@@ -65,12 +65,12 @@ const Home = () => {
           </Row>
         </Card>
       </Col>
-      <Col span={12}>
+      <Col lg={12} sm={24}>
         <Card title="Cards by type" bordered={false}>
           <CardTypePieChart data={chartData} fill={fill} />
         </Card>
       </Col>
-      <Col span={12}>
+      <Col lg={12} sm={24}>
         <Card title="Decks" bordered={false}>
           <DeckTable />
         </Card>

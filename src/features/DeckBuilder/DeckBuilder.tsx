@@ -21,17 +21,19 @@ const DeckBuilder = () => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24} style={{ textAlign: "center" }}>
-        <Space align="center" size="large">
+        <Space align="center" direction="vertical">
           <Typography.Title>Build your deck</Typography.Title>
           <Button
-            shape="circle"
+            block
             onClick={() => onOpenModal(true)}
             icon={<PlusOutlined />}
-          />
+          >
+            New Deck
+          </Button>
         </Space>
       </Col>
       {decks.map((deck) => (
-        <Col span={4} key={deck.name}>
+        <Col xl={4} md={8} sm={12} xs={24} key={deck.name}>
           <DeckCard deck={deck} onEdit={() => onOpenModal(true, deck)} />
         </Col>
       ))}

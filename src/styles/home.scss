@@ -1,6 +1,9 @@
 .home {
   &-cover {
     text-align: center;
+    img {
+      max-width: 100%;
+    }
   }
   &-quote {
     text-align: right;
