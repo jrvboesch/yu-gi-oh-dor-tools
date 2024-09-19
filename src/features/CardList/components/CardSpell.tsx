@@ -2,6 +2,7 @@ import React from "react";
 import { Cards } from "../../../store";
 import Field from "./Field";
 import { Card, Col, Collapse, CollapseProps, Row, Typography } from "antd";
+import CardImage from "../../common/CardImage";
 
 type Props = {
   card: Cards;
@@ -35,12 +36,7 @@ const CardSpell = ({ card }: Props) => {
   return (
     <Card
       className="card-list-card-spell"
-      cover={
-        <img
-          alt={card.name}
-          src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
-        />
-      }
+      cover={<CardImage alt={card.name} src={card.imageUrl} />}
     >
       <Card.Meta title={Title} description={Description} />
     </Card>

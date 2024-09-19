@@ -30,11 +30,14 @@ const HandFusionTool = () => {
   const onSubmit = async () => {
     try {
       const values = await form.validateFields();
-      const data = Object.entries(values).map<string>(([key, value]) => value);
+      const data = Object.entries(values).map<string>(([_, value]) => value);
       setFusionDeck(
-        fusions.filter(
-          ({ left, right }) => data.includes(left) && data.includes(right)
-        )
+        fusions.filter(({ left, right }) => {
+          if (left === right && data.filter((id) => id === left).length < 2) {
+            return false;
+          }
+          return data.includes(left) && data.includes(right);
+        })
       );
     } catch (error) {}
   };
@@ -62,11 +65,7 @@ const HandFusionTool = () => {
       }
       return (
         <Col key={`${left.id} - ${right.id}`} xl={4} md={8} sm={12} xs={24}>
-          <CardMonster
-            card={card}
-            left={`${left.id} - ${left.name}`}
-            right={`${right.id} - ${right.name}`}
-          />
+          <CardMonster card={card} left={left} right={right} />
         </Col>
       );
     })

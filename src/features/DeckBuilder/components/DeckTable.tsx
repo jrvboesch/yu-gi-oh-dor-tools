@@ -1,6 +1,7 @@
 import { Avatar, Space, Table, TableProps, Tooltip, Typography } from "antd";
 import React from "react";
 import { Decks, useAppSelector } from "../../../store";
+import CardImage from "../../common/CardImage";
 
 const DeckTable = () => {
   const decks = useAppSelector((state) => state.decks.list);
@@ -31,12 +32,7 @@ const DeckTable = () => {
           <Space>
             <Avatar
               shape="square"
-              icon={
-                <img
-                  src={`${process.env.PUBLIC_URL}${leader.imageUrl}`}
-                  alt={leader.name}
-                />
-              }
+              icon={<CardImage src={leader.imageUrl} alt={leader.name} />}
             />
             <Typography.Text>{leader.name}</Typography.Text>
           </Space>

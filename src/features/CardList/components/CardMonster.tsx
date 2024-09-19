@@ -1,13 +1,23 @@
 import React from "react";
 import { Cards } from "../../../store";
 import Field from "./Field";
-import { Card, Col, Collapse, CollapseProps, Row, Typography } from "antd";
-import { StarOutlined } from "@ant-design/icons";
+import {
+  Card,
+  Col,
+  Collapse,
+  CollapseProps,
+  Flex,
+  Row,
+  Space,
+  Typography,
+} from "antd";
+import { MergeCellsOutlined, StarOutlined } from "@ant-design/icons";
+import CardImage from "../../common/CardImage";
 
 type Props = {
   card: Cards;
-  left?: string;
-  right?: string;
+  left?: Cards;
+  right?: Cards;
 };
 
 const CardMonster = ({ card, left, right }: Props) => {
@@ -38,10 +48,20 @@ const CardMonster = ({ card, left, right }: Props) => {
   let FusionMaterial = null;
   if (left && right) {
     FusionMaterial = (
-      <Col span={24}>
-        <Typography.Text type="success">
-          {left} + {right}
-        </Typography.Text>
+      <Col span={24} style={{ textAlign: "center", padding: "10px 0" }}>
+        <Flex gap="middle" align="center" justify="space-evenly">
+          <Space direction="vertical">
+            <CardImage width={80} src={left.imageUrl} alt={left.name} />
+            <Typography.Text type="success">{left.name}</Typography.Text>
+          </Space>
+          <Typography.Title type="success">
+            <MergeCellsOutlined />
+          </Typography.Title>
+          <Space direction="vertical">
+            <CardImage width={80} src={right.imageUrl} alt={right.name} />
+            <Typography.Text type="success">{right.name}</Typography.Text>
+          </Space>
+        </Flex>
       </Col>
     );
   }
@@ -68,12 +88,7 @@ const CardMonster = ({ card, left, right }: Props) => {
   return (
     <Card
       className="card-list-card-monster"
-      cover={
-        <img
-          alt={card.name}
-          src={`${process.env.PUBLIC_URL}${card.imageUrl}`}
-        />
-      }
+      cover={<CardImage alt={card.name} src={card.imageUrl} />}
     >
       <Card.Meta title={Title} description={Description} />
     </Card>
