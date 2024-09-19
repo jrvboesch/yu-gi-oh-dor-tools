@@ -6,6 +6,9 @@ import { AutoComplete, Col, Input, Row } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { Cards } from "../../store";
 import InfinitScroll, { InfinitScrollRef } from "../common/InfinitScroll";
+import useDebounce from "../../hooks/useDebounce";
+
+const MAX_CARDS_TO_LOAD = 100;
 
 const CardList = () => {
   const infinitScrollRef = useRef<InfinitScrollRef<Cards>>(null);
@@ -13,7 +16,7 @@ const CardList = () => {
   const cards = useAppSelector((state) => state.cards.list);
 
   const onScroll = (count: number): Cards[] => {
-    const list = cards.slice(count, count + 100);
+    const list = cards.slice(count, count + MAX_CARDS_TO_LOAD);
     return list;
   };
 
@@ -48,16 +51,19 @@ const CardList = () => {
     label: `${card.id} - ${card.name}`,
   }));
 
-  const onSearch = (value: string = ""): void => {
+  const onSearch = useDebounce((value: string = ""): void => {
     let items = cards;
     if (value.length) {
+      console.log({ value });
       items = cards.filter(
         ({ id, name }) =>
           `${id} - ${name}`.toUpperCase()?.indexOf(value.toUpperCase()) !== -1
       );
+    } else {
+      items = cards.slice(0, MAX_CARDS_TO_LOAD);
     }
     infinitScrollRef.current?.onSearch(value, items);
-  };
+  }, 300);
 
   return (
     <Row gutter={[16, 48]} className="card-list">
@@ -67,13 +73,13 @@ const CardList = () => {
           placeholder="Search some cards"
           optionFilterProp="label"
           options={options}
+          allowClear
           filterOption={(inputValue, option) =>
             (option!.label as string)
               ?.toUpperCase()
               ?.indexOf(inputValue.toUpperCase()) !== -1
           }
           onChange={onSearch}
-          onSearch={onSearch}
         >
           <Input.Search size="large" />
         </AutoComplete>
