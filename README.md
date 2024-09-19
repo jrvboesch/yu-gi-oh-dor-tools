@@ -46,7 +46,7 @@ export interface Decks {
 
 This project is live on GitHub Pages! You can use the application directly by visiting the following link:
 
-[Visit Duel of Roses Fusion Guide](http://localhost:3000/yu-gi-oh-dor-tools)
+[Visit Duel of Roses Fusion Guide](https://jrvboesch.github.io/yu-gi-oh-dor-tools/)
 
 ## Thanks
 
